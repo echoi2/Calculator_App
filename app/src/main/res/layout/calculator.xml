@@ -1,41 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/darkGrey"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!--    layout_weight is used to specify the size ratio between multiple views  -->
+    <!--    results and our working bars    -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/working"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:lines="2"
+            android:maxLines="2"
+            android:textAlignment="textEnd"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/results"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="20dp"
+            />
+
+        <TextView
+            android:id="@+id/results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    Button rows -->
+    <LinearLayout
+        style="@style/buttonRow">
+
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/seven"/>
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/eight"/>
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/nine"/>
+        <Button
+            style="@style/buttonOperator"
+            android:text="@string/div"/>
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        style="@style/buttonRow">
 
         <Button
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/add" />
+            style="@style/buttonNumber"
+            android:text="@string/four"/>
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/five"/>
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/six"/>
+        <Button
+            style="@style/buttonOperator"
+            android:text="@string/mult"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/buttonRow">
 
         <Button
-            android:id="@+id/sub"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/sub" />
+            style="@style/buttonNumber"
+            android:text="@string/one"/>
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/two"/>
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/three"/>
+        <Button
+            style="@style/buttonOperator"
+            android:text="@string/sub"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/buttonRow">
 
         <Button
-            android:id="@+id/mult"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/mult" />
+            style="@style/buttonNumber"
+            android:text="@string/zero"/>
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/dot"/>
 
         <Button
-            android:id="@+id/div"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/div" />
-
+            style="@style/buttonNumber"
+            android:layout_weight="2"
+            android:background="@color/orange"
+            android:text="@string/eq"
+            android:textColor="#455A64" />
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
