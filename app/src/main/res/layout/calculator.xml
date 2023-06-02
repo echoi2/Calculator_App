@@ -23,12 +23,12 @@
             android:background="@android:color/transparent"
             android:lines="2"
             android:maxLines="2"
+            android:text="1234"
             android:textAlignment="textEnd"
             android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/results"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="20dp"
-            />
+            tools:layout_editor_absoluteX="20dp" />
 
         <TextView
             android:id="@+id/results"
@@ -43,70 +43,101 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <!--    Button rows -->
-    <LinearLayout
-        style="@style/buttonRow">
+    <LinearLayout style="@style/buttonRow">
 
         <Button
             style="@style/buttonNumber"
-            android:text="@string/seven"/>
+            android:text="@string/ac"
+            android:onClick="clear"/>
+
         <Button
             style="@style/buttonNumber"
-            android:text="@string/eight"/>
+            android:text="@string/par" />
+
         <Button
             style="@style/buttonNumber"
-            android:text="@string/nine"/>
+            android:text="@string/mod" />
+
         <Button
             style="@style/buttonOperator"
-            android:text="@string/div"/>
+            android:text="@string/div" />
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/buttonRow">
+    <LinearLayout style="@style/buttonRow">
 
         <Button
             style="@style/buttonNumber"
-            android:text="@string/four"/>
+            android:text="@string/seven" />
+
         <Button
             style="@style/buttonNumber"
-            android:text="@string/five"/>
+            android:text="@string/eight" />
+
         <Button
             style="@style/buttonNumber"
-            android:text="@string/six"/>
+            android:text="@string/nine" />
+
         <Button
             style="@style/buttonOperator"
-            android:text="@string/mult"/>
+            android:text="@string/mult" />
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/buttonRow">
+    <LinearLayout style="@style/buttonRow">
 
         <Button
             style="@style/buttonNumber"
-            android:text="@string/one"/>
+            android:text="@string/four" />
+
         <Button
             style="@style/buttonNumber"
-            android:text="@string/two"/>
+            android:text="@string/five" />
+
         <Button
             style="@style/buttonNumber"
-            android:text="@string/three"/>
+            android:text="@string/six" />
+
         <Button
             style="@style/buttonOperator"
-            android:text="@string/sub"/>
+            android:text="@string/sub" />
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/buttonRow">
+    <LinearLayout style="@style/buttonRow">
 
         <Button
             style="@style/buttonNumber"
-            android:text="@string/zero"/>
-        <Button
-            style="@style/buttonNumber"
-            android:text="@string/dot"/>
+            android:text="@string/one" />
 
         <Button
             style="@style/buttonNumber"
-            android:layout_weight="2"
+            android:text="@string/two" />
+
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/three" />
+
+        <Button
+            style="@style/buttonOperator"
+            android:text="@string/add" />
+    </LinearLayout>
+
+
+    <LinearLayout style="@style/buttonRow">
+
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/zero" />
+
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/dot" />
+
+        <Button
+            style="@style/buttonOperator"
+            android:text="@string/del"
+            android:onClick="delete"/>
+
+        <Button
+            style="@style/buttonNumber"
             android:background="@color/orange"
             android:text="@string/eq"
             android:textColor="#455A64" />

@@ -4,6 +4,7 @@
     <string name="sub">-</string>
     <string name="mult">X</string>
     <string name="div">/</string>
+    <string name="mod">%</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
@@ -14,6 +15,9 @@
     <string name="eight">8</string>
     <string name="nine">9</string>
     <string name="zero">0</string>
+    <string name="ac">AC</string>
+    <string name="del">⌫</string>
+    <string name="par">( )</string>
     <string name="dot">.</string>
     <string name="eq">=</string>
     <string name="enterBar">Enter Numbers</string>
