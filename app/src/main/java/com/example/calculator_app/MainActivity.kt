@@ -33,4 +33,9 @@ class MainActivity : ComponentActivity() {
     fun operationAction(view: View) {
 
     }
+    // Clear the data in the results and working TextViews
+    fun clear(view: View){
+        binding.results.text = ""
+        binding.working.text = ""
+    }
 }
