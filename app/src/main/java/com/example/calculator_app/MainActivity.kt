@@ -1,6 +1,8 @@
 package com.example.calculator_app
 
 import android.os.Bundle
+import android.text.TextUtils.substring
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,33 +22,15 @@ class MainActivity : ComponentActivity() {
         binding = CalculatorBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-//        setContent {
-//            CalculatorAppTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    Greeting("Android")
-//                }
-//            }
-//        }
+    }
+
+    // Names for the following two functions cannot change since they are specifically called on by
+// the
+    fun numberAction(view: View) {
 
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    fun operationAction(view: View) {
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Calculator_AppTheme {
-        Greeting("Android")
     }
 }
