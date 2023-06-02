@@ -38,4 +38,9 @@ class MainActivity : ComponentActivity() {
         binding.results.text = ""
         binding.working.text = ""
     }
+
+    fun delete(view: View){
+        val displayChars: CharSequence = binding.working.text
+        if(displayChars.isNotEmpty()) binding.working.text = displayChars.substring(0, displayChars.length-1)
+    }
 }
