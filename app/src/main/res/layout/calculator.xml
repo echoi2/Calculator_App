@@ -43,19 +43,31 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <!--    Button rows -->
     <LinearLayout style="@style/buttonRow">
+        <Button
+            style="@style/buttonOperator"
+            android:text="@string/exp"/>
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/leftPar"/>
+        <Button
+            style="@style/buttonNumber"
+            android:text="@string/rightPar"/>
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/buttonRow">
 
         <Button
             style="@style/buttonNumber"
             android:text="@string/ac"
-            android:onClick="clear"/>
+            android:onClick="clear"
+            android:layout_weight="2"/>
+
 
         <Button
             style="@style/buttonNumber"
-            android:text="@string/par" />
-
-        <Button
-            style="@style/buttonNumber"
-            android:text="@string/mod" />
+            android:text="@string/mod"
+            android:layout_weight="1"/>
 
         <Button
             style="@style/buttonOperator"
@@ -139,7 +151,8 @@
             style="@style/buttonNumber"
             android:background="@color/orange"
             android:text="@string/eq"
-            android:textColor="#455A64" />
+            android:textColor="#455A64"
+            />
 
     </LinearLayout>
 
