@@ -2,34 +2,14 @@ package com.example.calculator_app
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.TextUtils.substring
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.text.isDigitsOnly
-import com.example.calculator_app.ui.theme.Calculator_AppTheme
 import com.example.calculator_app.databinding.CalculatorBinding
-
-
-/*
-RULES:
-
-1. Display can't start with an operation sign unless it is a minus sign
-2. Display can't have multiple operation signs next to each other
-3. Minus is the only operation sign that can come after another operation sign other than itself
-3. Display can have operation signs right after decimal point
-4. If the char before a minus sign is another operation sign and if you click another opertion
-   sign after that minus sign, then you just delete that minus sign
- */
-
+import java.util.logging.Logger.global
+import kotlin.math.pow
 
 
 class MainActivity : ComponentActivity() {
