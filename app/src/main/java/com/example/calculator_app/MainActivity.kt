@@ -14,6 +14,7 @@ import kotlin.math.pow
 
 class MainActivity : ComponentActivity() {
     private lateinit var binding: CalculatorBinding
+    val global = Global()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CalculatorBinding.inflate(layoutInflater)
@@ -21,6 +22,34 @@ class MainActivity : ComponentActivity() {
         setContentView(view)
     }
 
+    class Stack<T : Any>(val stack: ArrayDeque<T> = ArrayDeque(mutableListOf<T>())) {
+        fun push(element: T) = stack.addLast(element)
+        fun pop() = stack.removeLast()
+        fun top() = stack.last()
+        fun isEmpty() = stack.isEmpty()
+    }
+
+    class Global(private var openingParenthCt: Int = 0, private var canPlaceDecimal: Boolean = true){
+        fun editOpeningParenthCt(operation: String){
+            when(operation){
+                "+" -> openingParenthCt++
+                else -> openingParenthCt--
+            }
+        }
+        fun getOpeningParenthCt() = openingParenthCt
+        fun setCanPlaceDecimal(){
+            canPlaceDecimal = !canPlaceDecimal
+        }
+        fun getCanPlaceDecimal() = canPlaceDecimal
+        fun reset(options: List<String>) {
+            if("parenthCt" in options){
+                openingParenthCt = 0
+            }
+            if("decimalBool" in options){
+                canPlaceDecimal = true
+            }
+        }
+    }
     // Names for the following two functions cannot change since they are specifically called on by
 // the
     // As it is right now, even if the amount of numbers being added exceeds the size of the TextView,
