@@ -50,6 +50,50 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
+    fun operationAction(view: View) {
+        val workView = binding.working
+        if (view is Button) {
+            val opSign = view.text
+            if (workView.text.isNotEmpty()) {
+                if (workView.text.last().isDigit() || workView.text.last() == '.') {
+                    workView.append(opSign)
+                    global.setCanPlaceDecimal()
+                }
+                else {
+                    if (workView.text.length == 1) {
+                        if (workView.text.last() != '-' && opSign == "-") {
+                            if(workView.text.last() == '+') workView.text = opSign else workView.append(opSign)
+                        }
+                        else {
+                            if(workView.text.last() != '^') workView.text = opSign
+                        }
+                    }
+                    else {
+                        if (workView.text.last() == '-' && !workView.text[workView.text.lastIndex - 1].isDigit()) {
+                            if (opSign != "-")
+                                workView.text = workView.text.substring(0, workView.text.length - 1)
+                        }
+                        else if (opSign == "-") {
+                            if (workView.text.last() != '-')
+                                workView.append(opSign)
+                        }
+                        else {
+                            workView.text = workView.text.replaceRange(
+                                workView.text.lastIndex,
+                                workView.text.lastIndex + 1, opSign
+                            )
+                        }
+                    }
+                }
+            }
+            else {
+                if (opSign == "-") workView.append(opSign)
+            }
+        }
+    }
+
     // Names for the following two functions cannot change since they are specifically called on by
 // the
     // As it is right now, even if the amount of numbers being added exceeds the size of the TextView,
