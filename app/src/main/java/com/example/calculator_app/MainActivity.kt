@@ -151,15 +151,45 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    fun infix(): CharSequence {
+        val workView = binding.working
+        val operators = listOf(')', '^','+', '-', '/', 'X')
+        val numStack = Stack<Float>()
+        val opStack = Stack<Char>()
+        var numToStack = ""
+        var result = ""
+        // dont want to actually manipulate the array directly since it'll get messy later
+        workView.text.forEachIndexed{index, it ->
+            when (it) {
+                '(' -> {
+                    opStack.push(it)
                 }
-                else{
-                    if(workingText.last() == '-' && !workingText[workingText.lastIndex-1].isDigit()){
-                        if(opSign != "-")
-                        binding.working.text = workingText.substring(0, workingText.length - 1)
+                in operators -> {
+                    Log.i("char", it.toString())
+                    numStack.push(numToStack.toFloat())
+                    numToStack = ""
+                    editStacks(it, numStack, opStack)
+                }
+                else -> {
+                    numToStack += it
+                    if(index == workView.text.lastIndex){
+                        Log.i("num", numToStack)
+                        numStack.push(numToStack.toFloat())
+                        numToStack = ""
                     }
-                    else if(opSign == "-"){
-                        if(workingText.last() != '-')
-                            workView.append(opSign)
+                }
+            }
+        }
+        result = finalStackEval(numStack, opStack)
+        workView.text=""
+        return if(result.last() == '0' && result[result.lastIndex - 1] == '.'){
+            result.toFloat().toInt().toString()
+        }
+        else
+            result
+
+    }
+
                     }
                     else{
                         workView.text = workView.text.replaceRange(
