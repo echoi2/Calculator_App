@@ -138,13 +138,26 @@ class MainActivity : ComponentActivity() {
     fun clear(view: View) {
         binding.results.text = ""
         binding.working.text = ""
+        global.reset(listOf("parenthCt","decimalBool"))
     }
 
     // Erase one char from the charSequence in @id/display
     fun delete(view: View) {
-        val displayChars: CharSequence = binding.working.text
-        if (displayChars.isNotEmpty()) binding.working.text =
-            displayChars.substring(0, displayChars.length - 1)
+        val displayChars = binding.working.text
+        if (displayChars.isNotEmpty()) {
+            when(displayChars.last()){
+                '.' -> {
+                    global.reset(listOf("decimalBool"))
+                }
+                '(' -> {
+                    global.editOpeningParenthCt("-")
+                }
+                ')' ->{
+                    global.editOpeningParenthCt("+")
+                }
+            }
+            binding.working.text = displayChars.substring(0, displayChars.length - 1)
+        }
     }
 
 
