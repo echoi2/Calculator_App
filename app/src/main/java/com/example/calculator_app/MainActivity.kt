@@ -111,15 +111,6 @@ class MainActivity : ComponentActivity() {
 
     }
 
-    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
-    fun operationAction(view: View) {
-        val workingText: CharSequence = binding.working.text
-        if(view is Button){
-            val opSign = view.text
-            val workView = binding.working
-            if(workingText.isNotEmpty()){
-                if(workingText.last().isDigit()){
-                    workView.append(opSign)
                 }
                 else{
                     if(workingText.last() == '-' && !workingText[workingText.lastIndex-1].isDigit()){
