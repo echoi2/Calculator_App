@@ -98,17 +98,57 @@ class MainActivity : ComponentActivity() {
 // the
     // As it is right now, even if the amount of numbers being added exceeds the size of the TextView,
     // they are still being appended onto the text of the TextView (just not being shown)
+    // The buttons here are numbers 0-9 as well as '=' and '.'
+    @SuppressLint("SetTextI18n")
     fun numberAction(view: View) {
+        val idWorking = binding.working
+        val idResults = binding.results
         if (view is Button) {
-            val num = view.text.isDigitsOnly()
-            if (num) {
-                binding.working.append(view.text)
-            }
-            else{
-                //filler
+            when (view.text) {
+                "=" -> {
+                    if(idWorking.text.isNotEmpty()){
+                        if (idWorking.text.last().isDigit() || idWorking.text.last() == '.' || idWorking.text.last() == ')'){
+                            Log.i("infix", idWorking.text.toString())
+                            idResults.text = infix()
+                        }
+                        else{
+                            //Log.i("e", idWorking.text.last().toString())
+                            idResults.text = "Input Err"
+                            idWorking.text = ""
+                            global.reset(listOf("parenthCt", "decimalBool"))
+                        }
+                    }
+                    else{
+                        if(idResults.text.isNotEmpty() && idResults.text != "Input Err"){
+                            idWorking.text = idResults.text
+                            idResults.text = ""
+                        }
+                    }
+
+                }
+                "." ->
+                    if(global.getCanPlaceDecimal()){
+                        if (idWorking.text.isEmpty() || ((idWorking.text.isNotEmpty()) && idWorking.text.last() != '.')){
+                            idWorking.append(view.text)
+                            global.setCanPlaceDecimal()
+                        }
+                    }
+                //i can try and create global variables to keep track of the ()'s to see if the opening one has been placed. If it has, then we can set the boolean
+                // true that you can place the closing or you can also continue to put more openings. Maybe you can use a counter that can tell you the amount of opening
+                // and closing ()'s that have been placed. If they are not the same, then you have an error otherwise you're bing chilling
+                "(" -> {
+                    global.editOpeningParenthCt("+")
+                    idWorking.append(view.text)
+                }
+                ")" -> {
+                    if(global.getOpeningParenthCt() > 0){
+                        global.editOpeningParenthCt("-")
+                        idWorking.append(view.text)
+                    }
+                }
+                else -> idWorking.append(view.text)
             }
         }
-
     }
 
                 }
