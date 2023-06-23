@@ -190,16 +190,78 @@ class MainActivity : ComponentActivity() {
 
     }
 
+    fun editStacks(char: Char, numStack: Stack<Float>, opStack: Stack<Char>) {
+        when {
+            opStack.isEmpty() -> opStack.push(char)
+
+            else -> if (opPrecedenceGreaterOrEqual(char, opStack)) {
+                opStack.push(char)
+            }
+            else {
+                /*we pop until the current operator is either equal to or greater than the
+                operator on the stack
+                 */
+                while (!opStack.isEmpty() && !opPrecedenceGreaterOrEqual(char, opStack)) {
+                    val operation = opStack.top()
+                    opStack.pop()
+                    val nextNum = numStack.top()
+                    numStack.pop()
+                    val firstNum = numStack.top()
+                    numStack.pop()
+                    Log.i("asdasd", operation.toString())
+                    val numString = quickMaths(operation, firstNum, nextNum)
+                    if(numString == "Div by Zero"){
+
                     }
                     else{
-                        workView.text = workView.text.replaceRange(
-                            workView.text.lastIndex,
-                            workView.text.lastIndex + 1, opSign)
+                        numStack.push(numString.toFloat())
                     }
                 }
+                if(char == ')')
+                    opStack.pop()
+                else
+                    opStack.push(char)
             }
-            else{
-                if (opSign == "-") workView.append(opSign)
+
+        }
+    }
+
+    fun finalStackEval(numStack: Stack<Float>, opStack: Stack<Char>): String{
+        while(!opStack.isEmpty()){
+            val rightHandNum = numStack.top()
+            numStack.pop()
+            val leftHandNum = numStack.top()
+            numStack.pop()
+            numStack.push(quickMaths(opStack.top(), leftHandNum, rightHandNum).toFloat())
+            opStack.pop()
+        }
+        return numStack.top().toString()
+    }
+    // Priority decreases as the character's index in the hierarchyOfOperations list increases
+    // so example is prio 0 > prio 3
+    fun opPrecedenceGreaterOrEqual(char: Char, opStack: Stack<Char>): Boolean {
+        val hierarchyOfOperations = listOf(listOf('^'), listOf('X', '/'), listOf('+', '-'), listOf('(', ')'))
+        var priorityOp = 0
+        var priorityStackOp = 0
+        hierarchyOfOperations.forEachIndexed{prio, it -> if(it.contains(char)) priorityOp = prio}
+        hierarchyOfOperations.forEachIndexed{prio, it -> if(it.contains(opStack.top())) priorityStackOp = prio}
+        // <= here since lower number means greater prio
+        return priorityOp <= priorityStackOp
+    }
+
+    fun quickMaths(operation: Char, firstNum: Float, nextNum: Float): String{
+        Log.i("quickMaths", "$firstNum $operation $nextNum")
+        if(operation == '/' && nextNum ==0.0f){
+            return "Div by Zero"
+        }
+        else{
+            return when(operation){
+                '/' -> (firstNum/nextNum).toString()
+                'X' -> (firstNum*nextNum).toString()
+                '+' -> (firstNum+nextNum).toString()
+                '-' -> (firstNum-nextNum).toString()
+                '^' -> (firstNum.pow(nextNum)).toString()
+                else -> ""
             }
         }
     }
