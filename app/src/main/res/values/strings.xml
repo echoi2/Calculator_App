@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Calculator_App</string>
+    <string name="exp">^</string>
     <string name="add">+</string>
     <string name="sub">-</string>
     <string name="mult">X</string>
@@ -17,7 +18,8 @@
     <string name="zero">0</string>
     <string name="ac">AC</string>
     <string name="del">⌫</string>
-    <string name="par">( )</string>
+    <string name="leftPar">(</string>
+    <string name="rightPar">)</string>
     <string name="dot">.</string>
     <string name="eq">=</string>
     <string name="enterBar">Enter Numbers</string>
