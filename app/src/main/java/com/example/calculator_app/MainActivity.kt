@@ -162,6 +162,11 @@ class MainActivity : ComponentActivity() {
         workView.text.forEachIndexed{index, it ->
             when (it) {
                 '(' -> {
+                    if(numToStack.isNotEmpty()){
+                        opStack.push('X')
+                        numStack.push(numToStack.toFloat())
+                        numToStack = ""
+                    }
                     opStack.push(it)
                 }
                 in operators -> {
@@ -169,6 +174,10 @@ class MainActivity : ComponentActivity() {
                     numStack.push(numToStack.toFloat())
                     numToStack = ""
                     editStacks(it, numStack, opStack)
+                    if(it == ')' && index != workView.text.lastIndex &&
+                        (workView.text[index + 1].isDigit() || workView.text[index+1] == '(')){
+                        opStack.push('X')
+                    }
                 }
                 else -> {
                     numToStack += it
@@ -194,7 +203,10 @@ class MainActivity : ComponentActivity() {
         when {
             opStack.isEmpty() -> opStack.push(char)
 
-            else -> if (opPrecedenceGreaterOrEqual(char, opStack)) {
+            else -> if (char == ')' && opStack.top() == '(') {
+                opStack.pop()
+            }
+            else if (opPrecedenceGreaterOrEqual(char, opStack)) {
                 opStack.push(char)
             }
             else {
@@ -210,14 +222,13 @@ class MainActivity : ComponentActivity() {
                     numStack.pop()
                     Log.i("asdasd", operation.toString())
                     val numString = quickMaths(operation, firstNum, nextNum)
-                    if(numString == "Div by Zero"){
+                    if (numString == "Div by Zero") {
 
-                    }
-                    else{
+                    } else {
                         numStack.push(numString.toFloat())
                     }
                 }
-                if(char == ')')
+                if (char == ')')
                     opStack.pop()
                 else
                     opStack.push(char)
