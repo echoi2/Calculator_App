@@ -158,6 +158,7 @@ class MainActivity : ComponentActivity() {
         val opStack = Stack<Char>()
         var numToStack = ""
         var result = ""
+        Log.d(TAG, "The expression being evaluated is ${workView.text}")
         // dont want to actually manipulate the array directly since it'll get messy later
         workView.text.forEachIndexed{index, it ->
             when (it) {
@@ -168,26 +169,45 @@ class MainActivity : ComponentActivity() {
                         numToStack = ""
                     }
                     opStack.push(it)
+                    if(!numStack.isEmpty()){
+                        Log.d(TAG, "current state of numStack: ${numStack.printStack()}")
+                    }
+                    else{
+                        Log.d(TAG, "numStack is currently empty")
+                    }
+                    Log.d(TAG, "current state of opStack: ${opStack.printStack()}")
                 }
                 in operators -> {
-                    Log.i("char", it.toString())
-                    numStack.push(numToStack.toFloat())
-                    numToStack = ""
+                    if(numToStack.isNotEmpty()){
+                        numStack.push(numToStack.toFloat())
+                        numToStack = ""
+                    }
+                    Log.d(TAG, "previous state of numStack before edit: ${numStack.printStack()}")
+                    Log.d(TAG, "previous state of opStack before edit: ${opStack.printStack()}")
                     editStacks(it, numStack, opStack)
+                    Log.d(TAG, "post state of numStack after edit: ${numStack.printStack()}")
+                    Log.d(TAG, "post state of opStack after edit: ${opStack.printStack()}")
                     if(it == ')' && index != workView.text.lastIndex &&
                         (workView.text[index + 1].isDigit() || workView.text[index+1] == '(')){
                         opStack.push('X')
+                        Log.d(TAG, "multiplication added to stack: ${opStack.printStack()}")
                     }
+
                 }
                 else -> {
                     numToStack += it
                     if(index == workView.text.lastIndex){
-                        Log.i("num", numToStack)
                         numStack.push(numToStack.toFloat())
                         numToStack = ""
                     }
                 }
             }
+        }
+        if(!numStack.isEmpty()){
+            Log.d(TAG, "${numStack.printStack()}")
+        }
+        if(!opStack.isEmpty()){
+            Log.d(TAG, "${opStack.printStack()}")
         }
         result = finalStackEval(numStack, opStack)
         workView.text=""
@@ -220,7 +240,6 @@ class MainActivity : ComponentActivity() {
                     numStack.pop()
                     val firstNum = numStack.top()
                     numStack.pop()
-                    Log.i("asdasd", operation.toString())
                     val numString = quickMaths(operation, firstNum, nextNum)
                     if (numString == "Div by Zero") {
 
@@ -261,7 +280,6 @@ class MainActivity : ComponentActivity() {
     }
 
     fun quickMaths(operation: Char, firstNum: Float, nextNum: Float): String{
-        Log.i("quickMaths", "$firstNum $operation $nextNum")
         if(operation == '/' && nextNum ==0.0f){
             return "Div by Zero"
         }
