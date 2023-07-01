@@ -6,15 +6,14 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.activity.ComponentActivity
-import androidx.core.text.isDigitsOnly
 import com.example.calculator_app.databinding.CalculatorBinding
-import java.util.logging.Logger.global
 import kotlin.math.pow
 
 
 class MainActivity : ComponentActivity() {
     private lateinit var binding: CalculatorBinding
     val global = Global()
+    val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CalculatorBinding.inflate(layoutInflater)
@@ -27,6 +26,7 @@ class MainActivity : ComponentActivity() {
         fun pop() = stack.removeLast()
         fun top() = stack.last()
         fun isEmpty() = stack.isEmpty()
+        fun printStack() = stack.asReversed().forEach{println(it)}
     }
 
     class Global(private var openingParenthCt: Int = 0, private var canPlaceDecimal: Boolean = true){
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
         if (view is Button) {
             val opSign = view.text
             if (workView.text.isNotEmpty()) {
-                if (workView.text.last().isDigit() || workView.text.last() == '.') {
+                if (workView.text.last().isDigit() || workView.text.last() == '.' || workView.text.last() == ')') {
                     workView.append(opSign)
                     global.setCanPlaceDecimal()
                 }
@@ -67,7 +67,7 @@ class MainActivity : ComponentActivity() {
                             if(workView.text.last() == '+') workView.text = opSign else workView.append(opSign)
                         }
                         else {
-                            if(workView.text.last() != '^') workView.text = opSign
+                            if(workView.text.last() != '^' && workView.text.last() != '(') workView.text = opSign
                         }
                     }
                     else {
@@ -80,10 +80,12 @@ class MainActivity : ComponentActivity() {
                                 workView.append(opSign)
                         }
                         else {
-                            workView.text = workView.text.replaceRange(
-                                workView.text.lastIndex,
-                                workView.text.lastIndex + 1, opSign
-                            )
+                            if(workView.text.last() != '('){
+                                workView.text = workView.text.replaceRange(
+                                    workView.text.lastIndex,
+                                    workView.text.lastIndex + 1, opSign
+                                )
+                            }
                         }
                     }
                 }
@@ -108,11 +110,9 @@ class MainActivity : ComponentActivity() {
                 "=" -> {
                     if(idWorking.text.isNotEmpty()){
                         if (idWorking.text.last().isDigit() || idWorking.text.last() == '.' || idWorking.text.last() == ')'){
-                            Log.i("infix", idWorking.text.toString())
                             idResults.text = infix()
                         }
                         else{
-                            //Log.i("e", idWorking.text.last().toString())
                             idResults.text = "Input Err"
                             idWorking.text = ""
                             global.reset(listOf("parenthCt", "decimalBool"))
